@@ -19,3 +19,15 @@ sports_betting_project/
 ├── requirements.txt           # Python dependencies
 ├── .gitignore                 # Exclude /data, /models, and venv
 └── README.md                  # Project overview and setup instructions
+
+# Tech Stack
+- Python 3.x
+- Flask
+- Flask-Login
+- SQLAlchemy
+- Bootstrap 5 ?
+
+## Install Dependencies
+```bash
+pip install -r requirements.txt
+```
