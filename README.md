@@ -33,3 +33,4 @@ pip install -r requirements.txt
 ```
 
 sqlitebrowser
+https://www.youtube.com/watch?v=n_ZMQj09S6w
