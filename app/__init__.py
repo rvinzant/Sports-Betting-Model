@@ -38,7 +38,7 @@ def create_app():
         logger.debug(f"load_user called with ID: {user_id}")
         return User.query.get(int(user_id))
 
-    from . import routes
+    from .src import routes
     app.register_blueprint(routes.bp)
 
     @app.errorhandler(500)
@@ -70,9 +70,9 @@ import atexit
 
 # Backup database and log exit
 def log_backup_exit():
-    logger.critical("Finance program exited unexpectedly or was terminated.")
+    logger.critical("Betting program exited unexpectedly or was terminated.")
     try:
-        source = '../instance/finance.db'
+        source = '../instance/betting.db'
         backup_dir = '../backups'
         if not os.path.exists(backup_dir):
             os.makedirs(backup_dir)

@@ -5,16 +5,16 @@ import logging
 def savedLevel(type=str, value=str):
     logger.info(f"savedLevel function in logging_config.py called with type: {type}, value: {value}")
     idx = -1
-    level = None
+    level = "INFO"
     data = []
-    with open("config.txt", 'r') as f:
-        data = f.readlines()
-        for line in data:
-            idx += 1
-            if line.startswith("log-level:"):
-                level = line.split(": ")[1].strip()
-                break
-        f.close()
+    # with open("config.txt", 'r') as f:
+    #     data = f.readlines()
+    #     for line in data:
+    #         idx += 1
+    #         if line.startswith("log-level:"):
+    #             level = line.split(": ")[1].strip()
+    #             break
+    #     f.close()
     # Recieve the log level
     if type == "GET":
         if not level:

@@ -205,11 +205,12 @@ def predict():
     logger.debug(f"Profile function entered in routes.py with method: {request.method}")
 
     if request.method == 'POST':
+        game = request.form['game']
         # Do post stuff
         pass
     # GET request handling
     # userInfo = {'email': current_user.email, 'nickname': current_user.nickname}
-    return render_template('profile.html', userInfo="userInfo")
+    return render_template('predict.html')#, userInfo="userInfo")
 
 #------------------------------
 # Read files

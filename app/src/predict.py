@@ -1,6 +1,6 @@
 import lightgbm as lgb
 import numpy as np
-from .train import getGameData
+# from .train import getGameData
 
 # 1. Load the model
 model = lgb.Booster(model_file='nba_model.txt')

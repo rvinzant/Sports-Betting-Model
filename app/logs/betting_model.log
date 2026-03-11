@@ -1,0 +1,83 @@
+2026-03-11T14:37:33 - BettingLogger - INFO - Betting program started
+2026-03-11T14:37:33 - BettingLogger - CRITICAL - Finance program exited unexpectedly or was terminated.
+2026-03-11T14:37:33 - BettingLogger - ERROR - Backup failed: [Errno 2] No such file or directory: '../instance/finance.db'
+2026-03-11T14:43:45 - BettingLogger - INFO - Betting program started
+2026-03-11T14:43:45 - BettingLogger - CRITICAL - Betting program exited unexpectedly or was terminated.
+2026-03-11T14:43:45 - BettingLogger - ERROR - Backup failed: [Errno 2] No such file or directory: '../instance/betting.db'
+2026-03-11T14:44:09 - BettingLogger - INFO - Betting program started
+2026-03-11T14:44:09 - BettingLogger - INFO - Starting Betting application
+2026-03-11T14:45:17 - BettingLogger - INFO - Request: GET /
+2026-03-11T14:45:17 - BettingLogger - INFO - Home page requested
+2026-03-11T14:45:18 - BettingLogger - INFO - GET / returned 200 OK
+2026-03-11T14:45:18 - BettingLogger - INFO - Request: GET /static/css/style.css
+2026-03-11T14:45:18 - BettingLogger - INFO - Request: GET /static/js/main.js
+2026-03-11T14:45:18 - BettingLogger - INFO - GET /static/js/main.js returned 200 OK
+2026-03-11T14:45:18 - BettingLogger - INFO - GET /static/css/style.css returned 200 OK
+2026-03-11T14:45:18 - BettingLogger - INFO - Request: GET /static/images/logo.png
+2026-03-11T14:45:18 - BettingLogger - ERROR - HTTP 500 error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-03-11T14:45:18 - BettingLogger - ERROR - HTTP 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-03-11T14:45:49 - BettingLogger - INFO - Request: GET /register
+2026-03-11T14:45:49 - BettingLogger - INFO - Registration attempt initiated
+2026-03-11T14:45:49 - BettingLogger - INFO - GET /register returned 200 OK
+2026-03-11T14:45:49 - BettingLogger - INFO - Request: GET /static/css/style.css
+2026-03-11T14:45:49 - BettingLogger - INFO - Request: GET /static/js/main.js
+2026-03-11T14:45:49 - BettingLogger - INFO - GET /static/css/style.css returned 304 NOT MODIFIED
+2026-03-11T14:45:49 - BettingLogger - INFO - GET /static/js/main.js returned 304 NOT MODIFIED
+2026-03-11T14:45:49 - BettingLogger - INFO - Request: GET /static/images/logo.png
+2026-03-11T14:45:49 - BettingLogger - ERROR - HTTP 500 error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-03-11T14:45:49 - BettingLogger - ERROR - HTTP 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-03-11T14:46:13 - BettingLogger - INFO - Request: POST /register
+2026-03-11T14:46:13 - BettingLogger - INFO - Registration attempt initiated
+2026-03-11T14:46:13 - BettingLogger - INFO - New user registered: new
+2026-03-11T14:46:13 - BettingLogger - INFO - POST /register returned 302 FOUND
+2026-03-11T14:46:13 - BettingLogger - INFO - Request: GET /login
+2026-03-11T14:46:13 - BettingLogger - INFO - GET /login returned 200 OK
+2026-03-11T14:46:13 - BettingLogger - INFO - Request: GET /static/css/style.css
+2026-03-11T14:46:13 - BettingLogger - INFO - Request: GET /static/js/main.js
+2026-03-11T14:46:13 - BettingLogger - INFO - GET /static/css/style.css returned 304 NOT MODIFIED
+2026-03-11T14:46:13 - BettingLogger - INFO - GET /static/js/main.js returned 304 NOT MODIFIED
+2026-03-11T14:46:13 - BettingLogger - INFO - Request: GET /static/images/logo.png
+2026-03-11T14:46:13 - BettingLogger - ERROR - HTTP 500 error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-03-11T14:46:13 - BettingLogger - ERROR - HTTP 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-03-11T14:46:22 - BettingLogger - INFO - Request: POST /login
+2026-03-11T14:46:22 - BettingLogger - INFO - Login attempt
+2026-03-11T14:46:22 - BettingLogger - INFO - Authentication success for user: new
+2026-03-11T14:46:22 - BettingLogger - CRITICAL - Unexpected critical error: Could not build url for endpoint 'main.dashboard'. Did you mean 'main.home' instead?
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/robertvinzant/Desktop/Sports-Betting-Model-1/app/src/routes.py", line 94, in login
+    return redirect(url_for('main.dashboard'))
+                    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/flask/helpers.py", line 239, in url_for
+    return current_app.url_for(
+           ~~~~~~~~~~~~~~~~~~~^
+        endpoint,
+        ^^^^^^^^^
+    ...<4 lines>...
+        **values,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.dashboard'. Did you mean 'main.home' instead?
+2026-03-11T14:46:22 - BettingLogger - ERROR - HTTP 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-03-11T14:46:22 - BettingLogger - INFO - Request: GET /favicon.ico
+2026-03-11T14:46:22 - BettingLogger - ERROR - HTTP 500 error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-03-11T14:46:22 - BettingLogger - ERROR - HTTP 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-03-11T14:52:07 - BettingLogger - INFO - Betting application stopped
+2026-03-11T14:52:07 - BettingLogger - CRITICAL - Betting program exited unexpectedly or was terminated.
+2026-03-11T14:52:07 - BettingLogger - ERROR - Backup failed: [Errno 2] No such file or directory: '../instance/betting.db'

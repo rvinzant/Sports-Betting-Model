@@ -9,8 +9,8 @@ from app import create_app, db
 # from app.src.models import User
 from werkzeug.security import generate_password_hash
 from app.src.logging_config import logger, file_handler
-import subprocess
-import os
+# import subprocess
+# import os
 
 
 app = create_app()
@@ -53,7 +53,7 @@ def update_db():
 """
 
 if __name__ == '__main__':
-    logger.info("Starting Finance application")
+    logger.info("Starting Betting application")
     try:
         # Check installation of all parameters
         with app.app_context():
@@ -65,4 +65,4 @@ if __name__ == '__main__':
     except Exception as e:
         logger.critical(f"Application crashed: {e}")
     finally:
-        logger.info("Finance application stopped")
+        logger.info("Betting application stopped")
