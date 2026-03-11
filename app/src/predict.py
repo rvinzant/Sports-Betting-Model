@@ -1,13 +1,17 @@
-import sqlite3
-import pandas as pd
+import lightgbm as lgb
+import numpy as np
+from .train import getGameData
 
-connect = sqlite3.connect('nba_betting.db')
-df = pd.read_sql("SELECT * FROM games_raw", connect)
+# 1. Load the model
+model = lgb.Booster(model_file='nba_model.txt')
 
+# 2. Prepare "Tonight's" data
+# Format: [HOME_LAST_5_PTS, AWAY_LAST_5_PTS, PLUS_MINUS_HOME, PLUS_MINUS_AWAY]
+# Example: Pacers (Home) vs Celtics (Away)
+tonight_data = np.array([[118.2, 112.5, 3.1, -1.2]])
 
-home_games = df[df['MATCHUP'].str.contains('vs.')].copy()
-away_games = df[df['MATCHUP'].str.contains('@')].copy()
+# 3. Predict
+probability = model.predict(tonight_data)[0]
 
-model_df = pd.merge(home_games,away_games, on='GAME_ID', suffixes=('_HOME','_AWAY'))
+print(f"Prediction: {probability:.2%} chance of Home Team winning.")
 
-print(model_df)
