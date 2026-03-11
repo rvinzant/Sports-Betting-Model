@@ -198,6 +198,19 @@ def profile():
     userInfo = {'email': current_user.email, 'nickname': current_user.nickname}
     return render_template('profile.html', userInfo=userInfo)
 
+# -----------------------------
+@bp.route('/predict', methods=['GET', 'POST'])
+@login_required
+def predict():
+    logger.debug(f"Profile function entered in routes.py with method: {request.method}")
+
+    if request.method == 'POST':
+        # Do post stuff
+        pass
+    # GET request handling
+    # userInfo = {'email': current_user.email, 'nickname': current_user.nickname}
+    return render_template('profile.html', userInfo="userInfo")
+
 #------------------------------
 # Read files
 def get_file_content(file_path):
