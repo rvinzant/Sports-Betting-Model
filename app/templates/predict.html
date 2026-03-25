@@ -6,7 +6,7 @@
         <label>Upcoming Games</label>
         <p>Choose one of the following games:</p>
         <select name="game" class="form-control" required>
-            {% for game in upcoming_games %}
+            {% for game in games %}
             <option value="{{ game }}">{{ game }}</option>
             {% endfor %}
         </select>

@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, current_app, session, request, red
 from .models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from app.src.logging_config import logger, savedLevel
+from .logging_config import logger, savedLevel
+from .utils import get_file_content, teams
+from .predict import predictGame
 # from sqlalchemy import func, select
 # from datetime import datetime, date, timedelta
 # from dateutil.relativedelta import relativedelta
@@ -203,29 +205,15 @@ def profile():
 @login_required
 def predict():
     logger.debug(f"Profile function entered in routes.py with method: {request.method}")
+    prediction = None
 
     if request.method == 'POST':
-        game = request.form['game']
-        # Do post stuff
-        pass
-    # GET request handling
-    # userInfo = {'email': current_user.email, 'nickname': current_user.nickname}
-    return render_template('predict.html')#, userInfo="userInfo")
-
-#------------------------------
-# Read files
-def get_file_content(file_path):
-    logger.debug(f"get_file_content function entered in routes.py for file: {file_path}")
-    try:
-        with open(file_path, 'r') as f:
-            logger.debug(f"Successfully opened and read file: {file_path}")
-            return f.read()
-    except FileNotFoundError:
-        logger.warning(f"File not found: {file_path}")
-        return "File not found."
-    except IOError as e:
-        logger.warning(f"Error reading file: {e}")
-        return "Error reading file."
+        home = request.form['homeTeam']
+        away = request.form['awayTeam']
+        prediction = predictGame(home, away)
+    
+    logger.debug(f"Profile function exited in routes.py with method: {request.method}")
+    return render_template('predict.html', teams=teams, prediction=prediction)
 
 
 logLevel = logging.DEBUG

@@ -70,7 +70,3 @@ def trainModel():
     print(f"Test Set Accuracy: {accuracy:.2%}")
 
     model.save_model('nba_model.txt')
-
-
-def getGameData():
-  return

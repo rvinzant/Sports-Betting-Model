@@ -8,3 +8,8 @@ learn lightgbm
 
 bet tracker
 
+add future games to list in routes.py main.games
+
+predict.py
+    - add func to get stats needed to predict
+
