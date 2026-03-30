@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# Function to start your run.py
+# run using 'sh start.sh'
+
+# Function to start app.py
 start_app() {
     # Run in background and suppress "Terminated" messages
     python3 app.py &
     APP_PID=$!
-    echo "--- Betting App Started (PID: $APP_PID) ---"
+    echo "--- Betting App Started (PID: $APP_PID) ---"s
 }
 
 # Initial start

@@ -1,11 +1,40 @@
-function scrollToSpot(spot) {
-    // Determine where to scroll then do it
-    var where = (spot === 'bottom') ? document.body.scrollHeight : 0;
-    window.scrollTo({
-        top: where,
-        behavior: 'smooth'
-    });
-}
+// Check everything when page loads 
+window.addEventListener('DOMContentLoaded', () => {
+    const savedDarkMode = localStorage.getItem('darkMode');
+    
+    if (savedDarkMode === 'true') {
+        toggleDark();
+    }
+
+    function scrollToSpot(spot) {
+        // Determine where to scroll then do it
+        var where = (spot === 'bottom') ? document.body.scrollHeight : 0;
+        window.scrollTo({
+            top: where,
+            behavior: 'smooth'
+        });
+    }
+
+    const homeSelect = document.getElementById('homeTeamChoice');
+    const awaySelect = document.getElementById('awayTeamChoice');
+
+    // dont allow same team to be selected for both home and away
+    if (homeSelect && awaySelect) {
+        homeSelect.addEventListener('change', () => {
+            const selectedTeam = homeSelect.value;
+            
+            Array.from(awaySelect.options).forEach(option => {
+                option.disabled = (option.value === selectedTeam);
+            });
+        });
+        awaySelect.addEventListener('change', () => {
+            const selectedTeam = awaySelect.value;
+            
+            Array.from(homeSelect.options).forEach(option => {
+                option.disabled = (option.value === selectedTeam);
+            });
+        });
+    }
 
 function toggleDark() {
     // Determine the new theme based on current background
@@ -56,12 +85,4 @@ if (password && confirmPass && submitBtn) {
     confirmPass.addEventListener('input', validatePasswords);
 }
 
-
-// Run toggle dark when page loads to restore preferred theme
-window.addEventListener('DOMContentLoaded', () => {
-    const savedDarkMode = localStorage.getItem('darkMode');
-    
-    if (savedDarkMode === 'true') {
-        toggleDark();
-    }
 });

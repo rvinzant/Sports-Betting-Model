@@ -1,5 +1,5 @@
 from .logging_config import logger
-
+from .data_loader import load_team_stats
 
 teams = ["Atlanta Hawks","Boston Celtics","Brooklyn Nets",
     "Charlotte Hornets","Chicago Bulls","Cleveland Cavaliers",
@@ -30,9 +30,13 @@ def get_file_content(file_path):
     
 
 #------------------------------
-def getGames():
-    logger.debug("Games function entered in utils.py")
-    # get all future games and add them to a list
-    futureGames = [[]]
-    logger.debug("Games function exited in utils.py")
-    return futureGames
+def getGames(home_team, away_team):
+    home_stats = load_team_stats(home_team)
+    away_stats = load_team_stats(away_team)
+    home_last_5_pts = home_stats["last_5_avg_points"]
+    away_last_5_pts = away_stats["last_5_avg_points"]
+    plus_minus_home = home_stats["plus_minus"]
+    plus_minus_away = away_stats["plus_minus"]
+    game_data = [home_last_5_pts, away_last_5_pts, plus_minus_home, plus_minus_away]
+    logger.debug(f"Game data for {home_team} vs {away_team}: {game_data}")
+    return game_data

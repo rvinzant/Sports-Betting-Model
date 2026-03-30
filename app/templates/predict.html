@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Predict</h2>
-<form method="POST" class="mt-3 card">
-    <div class="mb-3">
-        <label>Upcoming Games</label>
-        <p>Choose one of the following games:</p>
-        <select name="game" class="form-control" required>
-            {% for game in games %}
-            <option value="{{ game }}">{{ game }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success">Predict this game</button>
-</form>
-<div class="card mt-3 d-flex justify-content-center">
-    <p>This is where output will be</p>
+<div class="card mb-3">
+    <h2>Predict</h2>
+    <form method="POST" class="mt-3 card">
+        <div class="mb-3">
+            <label>Choose the teams that're playing:</label>
+            <p>Home team</p>
+            <select name="homeTeam" class="form-control" required>
+                {% for team in teams %}
+                <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+            <p>Away team</p>
+            <select id="awayTeamChoice" name="awayTeam" class="form-control" required>
+                {% for team in teams %}
+                <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Predict this game</button>
+    </form>
+</div>
+<div id="result" class="card mt-3 d-flex justify-content-center">
+    <p>{{ prediction }}</p>
 </div>
 {% endblock %}

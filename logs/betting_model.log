@@ -1,0 +1,3 @@
+2026-03-30T13:26:40 - BettingLogger - INFO - Betting program started
+2026-03-30T13:26:42 - BettingLogger - CRITICAL - Betting program exited unexpectedly or was terminated.
+2026-03-30T13:26:42 - BettingLogger - ERROR - Backup failed: [Errno 2] No such file or directory: '../instance/betting.db'

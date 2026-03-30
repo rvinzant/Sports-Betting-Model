@@ -5,6 +5,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .logging_config import logger, savedLevel
 from .utils import get_file_content, teams
 from .predict import predictGame
+from .data_loader import load_team_stats
+
 # from sqlalchemy import func, select
 # from datetime import datetime, date, timedelta
 # from dateutil.relativedelta import relativedelta
@@ -150,6 +152,13 @@ def logout():
 
 
 #-------------------------------
+@bp.route('/dashboard')
+def dashboard():
+    logger.debug("Dashboard function called in routes.py")
+    return render_template('dashboard.html')
+
+
+#-------------------------------
 @bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -200,6 +209,7 @@ def profile():
     userInfo = {'email': current_user.email, 'nickname': current_user.nickname}
     return render_template('profile.html', userInfo=userInfo)
 
+
 # -----------------------------
 @bp.route('/predict', methods=['GET', 'POST'])
 @login_required
@@ -229,7 +239,6 @@ def logging_info():
     if not file_handler:
         logger.warning("Set log level function exited (handler not found)")
         flash("Log handler not found!", "warning")
-        return redirect(url_for('main.dashboard'))
     
     if request.method == 'POST':
         level = request.args.get('level').upper()
@@ -249,4 +258,4 @@ def logging_info():
             flash(f"Log level changed to {level}", "info")
             logger.info(f"Log level changed to {level}")
             logger.debug("Set log level function exited with success")
-        return redirect(url_for('main.dashboard'))
+    return redirect(url_for('main.dashboard'))

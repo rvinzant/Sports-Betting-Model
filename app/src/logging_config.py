@@ -42,7 +42,7 @@ def savedLevel(type=str, value=str):
         return
 
 # Create a logs folder in the root of the project
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 log_dir = os.path.join(BASE_DIR, "logs")
 os.makedirs(log_dir, exist_ok=True)
 log_file_path = os.path.join(log_dir, "betting_model.log")
