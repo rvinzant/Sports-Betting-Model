@@ -32,3 +32,6 @@ models/*.joblib
 Thumbs.db
 
 # Environment variables (API Keys, etc.)
+
+#logs
+logs/
