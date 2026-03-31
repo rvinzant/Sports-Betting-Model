@@ -1,23 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="card">
 
     <!-- Welcome Section -->
-    <div class="row justify-content-center">
-        <p>This is the homepage</p>
+    <div class="row justify-content-around">
+        <h2>Welcome to your best betting experience!</h2>
     </div>
 
     <!-- Action Buttons Section -->
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-around mt-4">
         <div class="col-md-4">
-            <a href="{{ url_for('main.predict') }}" class="btn btn-primary btn-lg w-100 mb-3">Predict a Game</a>
+            <a href="{{ url_for('main.profile') }}" class="btn btn-info btn-lg w-100 mb-3">Your profile</a>
         </div>
         <div class="col-md-4">
-            <a href="{{ url_for('main.profile') }}" class="btn btn-success btn-lg w-100 mb-3">Your profile</a>
-        </div>
-        <div class="col-md-4">
-            <a href="{{ url_for('main.logging_info') }}" class="btn btn-secondary btn-lg w-100 mb-3">Logging Info</a>
+            <a href="{{ url_for('main.logging_info') }}" class="btn btn-danger btn-lg w-100 mb-3">Logging Info</a>
         </div>
     </div>
+<div class="card mb-3">
+    <h2>Predict</h2>
+    <label>Choose the teams that're playing:</label>
+    <form id="predictForm" method="POST" action="/predict" class="mt-3 card">
+        <div class="mb-3 d-flex justify-content-around">
+            <div class="row justify-content-around">
+                <b>Home team</b>
+                <b>Away team</b>
+            </div>
+            <div class="row justify-content-around">
+            <!-- <div class="justify-content-center"> -->
+                <!-- <b>Home team</b> -->
+                <select id="homeTeam" name="homeTeam" class="form-control" required>
+                    <option value="none" selected disabled>Select a team</option>
+                    {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+            <!-- </div> -->
+            <!-- <div class="justify-content-center"> -->
+                <!-- <b>Away team</b> -->
+                <select id="awayTeam" name="awayTeam" class="form-control" required>
+                    <option value="none" selected disabled>Select a team</option>
+                    {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button id="predictSubmit" type="submit" class="btn btn-success">Predict this game</button>
+    </form>
+    <p>Prediction for: {{ away }} @ {{ home }}</p>
+    <p>{{ prediction }}</p>
+</div>
+</div>
 {% endblock %}

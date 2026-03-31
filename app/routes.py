@@ -5,14 +5,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .logging_config import logger, savedLevel
 from .utils import get_file_content, teams
 from .predict import predictGame
-from .data_loader import load_team_stats
-
-# from sqlalchemy import func, select
-# from datetime import datetime, date, timedelta
-# from dateutil.relativedelta import relativedelta
+# from .data_loader import load_team_stats
 import logging
-# import requests
-# import os
 
 bp = Blueprint('main', __name__)
 
@@ -154,8 +148,19 @@ def logout():
 #-------------------------------
 @bp.route('/dashboard')
 def dashboard():
-    logger.debug("Dashboard function called in routes.py")
-    return render_template('dashboard.html')
+    logger.debug("Dashboard function entered in routes.py")
+    results = session.pop('prediction_results', None)
+    prediction = None
+    home = None
+    away = None
+    if results:
+        prediction = results.get('prediction')
+        home = results.get('home')
+        away = results.get('away')
+        logger.debug(f"Dashboard received prediction results from session: {results}")
+        
+    logger.debug("Dashboard function exited in routes.py")
+    return render_template('dashboard.html', teams=teams, prediction=prediction, home=home, away=away)
 
 
 #-------------------------------
@@ -211,19 +216,22 @@ def profile():
 
 
 # -----------------------------
-@bp.route('/predict', methods=['GET', 'POST'])
+@bp.route('/predict', methods=['POST'])
 @login_required
 def predict():
     logger.debug(f"Profile function entered in routes.py with method: {request.method}")
-    prediction = None
+    # prediction = None
+    # home = None
+    # away = None
 
-    if request.method == 'POST':
-        home = request.form['homeTeam']
-        away = request.form['awayTeam']
-        prediction = predictGame(home, away)
+    # if request.method == 'POST':
+    home = request.form['homeTeam']
+    away = request.form['awayTeam']
+    prediction = predictGame(home, away)
+    session['prediction_results'] = {'prediction': prediction, 'home': home, 'away': away}
     
     logger.debug(f"Profile function exited in routes.py with method: {request.method}")
-    return render_template('predict.html', teams=teams, prediction=prediction)
+    return redirect(url_for('main.dashboard'))
 
 
 logLevel = logging.DEBUG
@@ -258,4 +266,6 @@ def logging_info():
             flash(f"Log level changed to {level}", "info")
             logger.info(f"Log level changed to {level}")
             logger.debug("Set log level function exited with success")
-    return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.dashboard'))
+    
+    return render_template('logging_info.html', current_level=savedLevel("GET", None))

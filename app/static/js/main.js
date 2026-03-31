@@ -15,24 +15,39 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const homeSelect = document.getElementById('homeTeamChoice');
-    const awaySelect = document.getElementById('awayTeamChoice');
+    const predictForm = document.getElementById('predictForm');
 
     // dont allow same team to be selected for both home and away
-    if (homeSelect && awaySelect) {
-        homeSelect.addEventListener('change', () => {
-            const selectedTeam = homeSelect.value;
+    if (predictForm) {
+        const homeSelect = document.getElementById('homeTeam');
+        const awaySelect = document.getElementById('awayTeam');
+        const submit = document.getElementById('predictSubmit');
+        submit.disabled = true;
+        submit.style.backgroundColor = "red";
+
+        predictForm.addEventListener('change', () => {
+            const selectedHomeTeam = homeSelect.value;
+            const selectedAwayTeam = awaySelect.value;
+
             
             Array.from(awaySelect.options).forEach(option => {
-                option.disabled = (option.value === selectedTeam);
+                if (option.value === selectedHomeTeam) {
+                    option.disabled = true;
+                } else {
+                    option.disabled = false;
+                }
             });
-        });
-        awaySelect.addEventListener('change', () => {
-            const selectedTeam = awaySelect.value;
-            
             Array.from(homeSelect.options).forEach(option => {
-                option.disabled = (option.value === selectedTeam);
+                option.disabled = option.value === selectedAwayTeam;
             });
+
+            if (homeSelect.value === awaySelect.value || homeSelect.value === 'none' || awaySelect.value === 'none') {
+                submit.disabled = true;
+                submit.style.backgroundColor = "red";
+            } else { 
+                submit.disabled = false;
+                submit.style.backgroundColor = "";
+            }
         });
     }
 

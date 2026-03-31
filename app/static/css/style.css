@@ -22,6 +22,8 @@ body.blurred {
 .card {
     border-radius: 10px;
     border: 1px solid #dddddd;
+    padding: 2vw;
+    margin: 2vw;
 }
 
 /* Flash messages */

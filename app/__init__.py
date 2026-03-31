@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask import render_template, request
 import os
-from app.src.logging_config import logger 
+from app.logging_config import logger 
 from flask_cors import CORS
 from flask_migrate import Migrate
 from datetime import datetime
@@ -31,14 +31,13 @@ def create_app():
     login_manager.init_app(app)
     CORS(app)
 
-    from .src.models import User
-
+    from .models import User
     @login_manager.user_loader
     def load_user(user_id):
         logger.debug(f"load_user called with ID: {user_id}")
         return User.query.get(int(user_id))
 
-    from .src import routes
+    from . import routes
     app.register_blueprint(routes.bp)
 
     @app.errorhandler(500)
@@ -66,14 +65,17 @@ def create_app():
         return response
 
     return app
+
+
 import atexit
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Backup database and log exit
 def log_backup_exit():
     logger.critical("Betting program exited unexpectedly or was terminated.")
     try:
-        source = '../instance/betting.db'
-        backup_dir = '../backups'
+        source = os.path.join(BASE_DIR, 'instance', 'betting_model.db')
+        backup_dir = os.path.join(BASE_DIR, 'backups')
         if not os.path.exists(backup_dir):
             os.makedirs(backup_dir)
             

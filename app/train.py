@@ -1,10 +1,11 @@
+import os
 from sklearn import metrics
-
 import pandas as pd
 import numpy as np
 import sqlite3
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split
+
 
 def trainModel():
     # --- STEP 1: LOAD DATA FROM DATABASE ---
@@ -68,5 +69,8 @@ def trainModel():
     binary_preds = [1 if p > 0.5 else 0 for p in preds]
     accuracy = (binary_preds == y_test).mean()
     print(f"Test Set Accuracy: {accuracy:.2%}")
-
-    model.save_model('nba_model.txt')
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    model_dir = os.path.join(BASE_DIR, "models")
+    os.makedirs(model_dir, exist_ok=True)
+    model.save_model(os.path.join(model_dir, "nba_model.txt"))

@@ -33,16 +33,16 @@ def savedLevel(type=str, value=str):
             return logging.CRITICAL         
     else:
         # Set the log level
-        logger.info(f"Setting log level to {value} in config")
-        with open("config.txt", 'w') as f:
-            if idx != -1:
-                data[idx] = f"log-level: {value}\n"
-            f.writelines(data)
-            f.close()
+        # logger.info(f"Setting log level to {value} in config")
+        # with open("config.txt", 'w') as f:
+        #     if idx != -1:
+        #         data[idx] = f"log-level: {value}\n"
+        #     f.writelines(data)
+        #     f.close()
         return
 
 # Create a logs folder in the root of the project
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 log_dir = os.path.join(BASE_DIR, "logs")
 os.makedirs(log_dir, exist_ok=True)
 log_file_path = os.path.join(log_dir, "betting_model.log")

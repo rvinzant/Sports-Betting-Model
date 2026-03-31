@@ -13,6 +13,7 @@ games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
 games.to_sql('games_raw', connect, if_exists='replace', index=False)
 
 df = pd.read_sql("SELECT * FROM games_raw", connect)
+# This is gonna do an infinite loop bc 'getGames' in utils calls this function too
 def load_team_stats(home_team, away_team):
   game_data = getGames(home_team, away_team)
   if game_data:
