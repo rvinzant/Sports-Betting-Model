@@ -10,9 +10,9 @@ Tell Rob:
     shifted rolling average for pm by 1 to avoid data leakage
 
     Tested 3/31: 
-        suns at magic: 34.86% magic
+        suns at magic: 34.86% magic X
         hornets at nets:  32% nets
         raptors at pistons: 66.35% pistons
-        nicks at rockets: 43.01% rockets
-        mavs at bucks: 45.46% bucks
+        nicks at rockets: 43.01% rockets X
+        mavs at bucks: 45.46% bucks X
         cavs at lakers: 66.34% lakers
