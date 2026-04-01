@@ -1,28 +1,36 @@
-from nba_api.stats.endpoints import leaguegamefinder
+# from nba_api.stats.endpoints import leaguegamefinder
 import pandas as pd
+import numpy as np
 import sqlite3
-from .predict import predictGame
 
-connect = sqlite3.connect('nba_betting.db')
+# gamefinder = leaguegamefinder.LeagueGameFinder(season_nullable= '2025-26')
+# games = gamefinder.get_data_frames()[0]
 
-gamefinder = leaguegamefinder.LeagueGameFinder(season_nullable= '2025-26')
-games = gamefinder.get_data_frames()[0]
+# games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
 
-games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
+# games.to_sql('games_raw', connect, if_exists='replace', index=False)
 
-games.to_sql('games_raw', connect, if_exists='replace', index=False)
+# df = pd.read_sql("SELECT * FROM games_raw", connect)
+def load_team_stats(team):
+  with sqlite3.connect('nba_betting.db') as connect:
+    recent_games_prompt = f"""
+          SELECT AVG(PTS) AS avg_points, 
+                AVG(PLUS_MINUS) AS avg_plus_minus 
+          FROM (
+              SELECT PTS, PLUS_MINUS
+              FROM games_raw
+              WHERE TEAM_NAME = '{team}'
+              ORDER BY GAME_DATE DESC
+              LIMIT 5
+          ) AS recent_games;
+        """
+    return pd.read_sql(recent_games_prompt, connect)
 
-df = pd.read_sql("SELECT * FROM games_raw", connect)
-# This is gonna do an infinite loop bc 'getGames' in utils calls this function too
-def load_team_stats(home_team, away_team):
-  game_data = getGames(home_team, away_team)
-  if game_data:
-    data = np.array([game_data])
-    probability = predictGame(data)
-    return probability
+  # recent = df[df['TEAM_NAME'] == team].sort_values('GAME_DATE', ascending=False).head(5)
+  # return recent[['PTS', 'PLUS_MINUS']].mean()
 
-
-connect.close()
-
-
-
+  # game_data = getPreviousGameData(home_team, away_team)
+  # if game_data:
+  #   data = np.array([game_data])
+  #   probability = predictGame(data)
+  #   return probability

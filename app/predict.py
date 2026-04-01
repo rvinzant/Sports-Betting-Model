@@ -1,6 +1,7 @@
 import os
 import lightgbm as lgb
 import numpy as np
+from .utils import getPreviousGameData
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 model_path = os.path.join(BASE_DIR, "models", "nba_model.txt")
@@ -10,10 +11,18 @@ model = lgb.Booster(model_file=model_path)
 # Example: Pacers (Home) vs Celtics (Away)
 def predictGame(homeTeam, awayTeam):
     # TODO: get the data needed and predict based off that
+    tonight_data = np.array([getPreviousGameData(homeTeam, awayTeam)])
 
-    # array holds needed data
-    tonight_data = np.array([[110.2, 112.5, 2.1, -1.2]])
+    if tonight_data is None:
+        return "Prediction couldn't be made."
+    print(f"predict.py - Data for prediction: {tonight_data}")
+
     probability = model.predict(tonight_data)[0]
+    answer = ""
+    if probability > 0.5:
+        answer = f"{probability:.2%} chance of {homeTeam} winning."
+    else:
+        answer = f"{1 - probability:.2%} chance of {awayTeam} winning."
 
-    return f"{probability:.2%} chance of Home Team winning."
+    return answer
 

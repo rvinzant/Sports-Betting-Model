@@ -1,5 +1,4 @@
 from .logging_config import logger
-from .data_loader import load_team_stats
 
 teams = ["Atlanta Hawks","Boston Celtics","Brooklyn Nets",
     "Charlotte Hornets","Chicago Bulls","Cleveland Cavaliers",
@@ -30,13 +29,19 @@ def get_file_content(file_path):
     
 
 #------------------------------
-def getGames(home_team, away_team):
+def getPreviousGameData(home_team, away_team):
+    from .data_loader import load_team_stats
+
     home_stats = load_team_stats(home_team)
     away_stats = load_team_stats(away_team)
-    home_last_5_pts = home_stats["last_5_avg_points"]
-    away_last_5_pts = away_stats["last_5_avg_points"]
-    plus_minus_home = home_stats["plus_minus"]
-    plus_minus_away = away_stats["plus_minus"]
+    if home_stats.empty or away_stats.empty:
+        logger.error("Could not find stats for one of the teams.")
+        return None
+    home_last_5_pts = home_stats["avg_points"].iloc[0]
+    away_last_5_pts = away_stats["avg_points"].iloc[0]
+    plus_minus_home = home_stats["avg_plus_minus"].iloc[0]
+    plus_minus_away = away_stats["avg_plus_minus"].iloc[0]
+    print(f"Previous game data for {home_team} vs {away_team}: {home_last_5_pts}, {away_last_5_pts}, {plus_minus_home}, {plus_minus_away}")
     game_data = [home_last_5_pts, away_last_5_pts, plus_minus_home, plus_minus_away]
     logger.debug(f"Game data for {home_team} vs {away_team}: {game_data}")
     return game_data

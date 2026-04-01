@@ -26,6 +26,10 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['DEBUG'] = True
 
+    # train the model when app starts
+    # from .train import trainModel
+    # trainModel()
+
     db.init_app(app)
     # migrate = Migrate(app, db)
     login_manager.init_app(app)

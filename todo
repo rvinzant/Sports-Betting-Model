@@ -4,4 +4,15 @@ frontend
 learn data
 learn lightgbm
 
-bet tracker
+Tell Rob:
+    Lowered learning rate of model, less leaves, got to 71.76% test set accuracy
+    changed rolling average to 10 games instead of 5
+    shifted rolling average for pm by 1 to avoid data leakage
+
+    Tested 3/31: 
+        suns at magic: 34.86% magic
+        hornets at nets:  32% nets
+        raptors at pistons: 66.35% pistons
+        nicks at rockets: 43.01% rockets
+        mavs at bucks: 45.46% bucks
+        cavs at lakers: 66.34% lakers

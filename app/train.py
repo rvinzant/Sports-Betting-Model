@@ -29,15 +29,17 @@ def trainModel():
     model_df = pd.merge(home_games, away_games, on='GAME_ID', suffixes=('_HOME', '_AWAY'))
 
     # --- STEP 3: FEATURE ENGINEERING (Rolling Averages) ---
-    # Calculate the average points of the PREVIOUS 5 games for each team
-    model_df['HOME_LAST_5_PTS'] = model_df.groupby('TEAM_ID_HOME')['PTS_HOME'].transform(lambda x: x.rolling(5).mean().shift(1))
-    model_df['AWAY_LAST_5_PTS'] = model_df.groupby('TEAM_ID_AWAY')['PTS_AWAY'].transform(lambda x: x.rolling(5).mean().shift(1))
+    # Calculate the average points and plus_minus of the PREVIOUS 10 games for each team
+    model_df['HOME_LAST_10_PTS'] = model_df.groupby('TEAM_ID_HOME')['PTS_HOME'].transform(lambda x: x.rolling(10).mean().shift(1))
+    model_df['AWAY_LAST_10_PTS'] = model_df.groupby('TEAM_ID_AWAY')['PTS_AWAY'].transform(lambda x: x.rolling(10).mean().shift(1))
+    model_df['HOME_LAST_10_PM'] = model_df.groupby('TEAM_ID_HOME')['PLUS_MINUS_HOME'].transform(lambda x: x.rolling(10).mean().shift(1))
+    model_df['AWAY_LAST_10_PM'] = model_df.groupby('TEAM_ID_AWAY')['PLUS_MINUS_AWAY'].transform(lambda x: x.rolling(10).mean().shift(1))
 
-    # Drop games where we don't have enough history (the first 5 games of the season)
-    model_df = model_df.dropna(subset=['HOME_LAST_5_PTS', 'AWAY_LAST_5_PTS'])
+    # Drop games where we don't have enough history (the first 10 games in dataset)
+    model_df = model_df.dropna(subset=['HOME_LAST_10_PTS', 'AWAY_LAST_10_PTS', 'HOME_LAST_10_PM', 'AWAY_LAST_10_PM'])
 
     # --- STEP 4: PREPARE LIGHTGBM DATA ---
-    features = ['HOME_LAST_5_PTS', 'AWAY_LAST_5_PTS', 'PLUS_MINUS_HOME', 'PLUS_MINUS_AWAY']
+    features = ['HOME_LAST_10_PTS', 'AWAY_LAST_10_PTS', 'HOME_LAST_10_PM', 'AWAY_LAST_10_PM']
     X = model_df[features]
     # Convert 'W' to 1 and 'L' to 0
     y = model_df['WL_HOME'].apply(lambda x: 1 if x == 'W' else 0)
@@ -54,8 +56,8 @@ def trainModel():
         'objective': 'binary',
         'metric': 'binary_logloss',
         'boosting_type': 'gbdt',
-        'learning_rate': 0.05,
-        'num_leaves': 31,
+        'learning_rate': 0.01,
+        'num_leaves': 20,
         'verbose': -1
     }
 
@@ -74,3 +76,8 @@ def trainModel():
     model_dir = os.path.join(BASE_DIR, "models")
     os.makedirs(model_dir, exist_ok=True)
     model.save_model(os.path.join(model_dir, "nba_model.txt"))
+
+
+# To train model running by running file
+if __name__ == "__main__":
+    trainModel()
