@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask import render_template, request
 import os
-from app.logging_config import logger 
+from .logging_config import logger
 from flask_cors import CORS
 from flask_migrate import Migrate
 from datetime import datetime
@@ -13,18 +13,21 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'main.login'
 
-def create_app():
+def create_app(config_class=None):
     logger.info("Betting program started") 
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'super-secret-key'
-
-    if os.environ.get("DOCKER") == "1":
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////instance/betting_model.db'
+    if config_class:
+        app.config.from_object(config_class)
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betting_model.db'
+        app.config['SECRET_KEY'] = 'super-secret-key'
 
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DEBUG'] = True
+        if os.environ.get("DOCKER") == "1":
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////instance/betting_model.db'
+        else:
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betting_model.db'
+
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        app.config['DEBUG'] = True
 
     # train the model when app starts
     # from .train import trainModel
