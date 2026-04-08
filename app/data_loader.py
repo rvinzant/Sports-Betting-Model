@@ -1,5 +1,5 @@
 from nba_api.stats.endpoints import leaguegamefinder
-import pandas as pd 
+import pandas as pd
 import numpy as np
 import sqlite3
 
