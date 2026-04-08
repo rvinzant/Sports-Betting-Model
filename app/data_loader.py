@@ -1,5 +1,5 @@
 from nba_api.stats.endpoints import leaguegamefinder
-import pandas as pd
+import pandas as pd 
 import numpy as np
 import sqlite3
 
@@ -14,7 +14,7 @@ import sqlite3
 def load_team_stats(team):
   with sqlite3.connect('nba_betting.db') as connect:
     recent_games_prompt = f"""
-          SELECT AVG(PTS) AS avg_points, 
+          SELECT AVG(PTS) AS avg_points,
                 AVG(PLUS_MINUS) AS avg_plus_minus 
           FROM (
               SELECT PTS, PLUS_MINUS
