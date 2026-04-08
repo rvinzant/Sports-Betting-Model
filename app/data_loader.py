@@ -1,4 +1,4 @@
-# from nba_api.stats.endpoints import leaguegamefinder
+from nba_api.stats.endpoints import leaguegamefinder
 import pandas as pd
 import numpy as np
 import sqlite3
@@ -21,7 +21,7 @@ def load_team_stats(team):
               FROM games_raw
               WHERE TEAM_NAME = '{team}'
               ORDER BY GAME_DATE DESC
-              LIMIT 5
+              LIMIT 10
           ) AS recent_games;
         """
     return pd.read_sql(recent_games_prompt, connect)

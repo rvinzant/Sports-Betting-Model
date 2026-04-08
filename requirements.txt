@@ -11,3 +11,4 @@ pandas==3.0.1
 scipy==1.17.0
 SQLAlchemy==2.0.40
 beautifulsoup4==4.14.3
+nba_api==1.11.4
