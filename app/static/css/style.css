@@ -20,8 +20,10 @@ body.blurred {
 
 /* Cards */
 .card {
+    color: #000000;
     border-radius: 10px;
     border: 1px solid #ffa500;
+    background-color: #d3d3d3;
     padding: 2vw;
     margin: 2vw;
 }
@@ -80,17 +82,6 @@ textarea {
   padding: 10px;
   border: 1px solid #808080;
   box-sizing: border-box; /* Includes padding and border in the element's total width and height */
-}
-
-.verticalNav {
-    position: fixed;     /* Keep it on the screen during scroll */
-    top: 0;
-    left: 0;
-    height: 100vh;       /* Full viewport height */
-    width: 200px;        /* Set a fixed width */
-    display: flex;       /* Use flexbox for internal layout */
-    flex-direction: column; /* Stack links vertically */
-    background-color: #333;
 }
 
 .main-content {
