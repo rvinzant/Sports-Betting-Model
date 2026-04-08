@@ -9,10 +9,21 @@ Tell Rob:
     changed rolling average to 10 games instead of 5
     shifted rolling average for pm by 1 to avoid data leakage
 
-    Tested 3/31: 
+    Tested 3/31: 3/6 = 50%
         suns at magic: 34.86% magic X
         hornets at nets:  32% nets
         raptors at pistons: 66.35% pistons
         nicks at rockets: 43.01% rockets X
         mavs at bucks: 45.46% bucks X
         cavs at lakers: 66.34% lakers
+
+    Tested 4/1: M = market
+        M 76 @ wiz: 55.2 76ers
+        M hawks @ orlando: 59.81 hawks 
+        M celtics @ heat: 61.84 celtics 
+        M kings @ raptors: 56.99 toronto 
+        NM pacers @ bulls: 58.47 pacers 
+        M bucks @ rockets: 69.12 rockets
+        M knicks @ grizzlies: 53.26 nicks
+        M nuggets @ jazz: 56.83 nuggets
+        M spurs @ warriors: 55.55 spurs
