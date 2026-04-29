@@ -7,6 +7,7 @@ from .utils import get_file_content, teams
 from .predict import predictGame
 # from .data_loader import load_team_stats
 import logging
+from app.data_loader import update_nba_data
 
 bp = Blueprint('main', __name__)
 

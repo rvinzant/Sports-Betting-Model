@@ -8,6 +8,8 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from datetime import datetime
 import shutil
+from app.data_loader import update_nba_data
+from app.train import trainModel
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -28,6 +30,10 @@ def create_app(config_class=None):
 
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         app.config['DEBUG'] = True
+    with app.app_context():
+        update_nba_data()
+        trainModel()
+
 
     # train the model when app starts
     # from .train import trainModel
