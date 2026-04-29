@@ -18,18 +18,13 @@ def update_nba_data():
     conn = sqlite3.connect(DB_PATH)
     
     try:
-        # 1. Pull the most recent games for the current season [cite: 35]
-        # Using a date_from filter ensures we only get recent data
         gamefinder = leaguegamefinder.LeagueGameFinder(season_nullable='2025-26')
         games = gamefinder.get_data_frames()[0]
 
-        # 2. Clean data: Ensure date is in the correct format
         games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
 
-        # 3. Use a staging table to avoid duplicates (UPSERT logic)
         games.to_sql('staging_table', conn, if_exists='replace', index=False)
 
-        # Only insert rows where the GAME_ID and TEAM_ID combination is new
         conn.execute("""
             INSERT OR IGNORE INTO games_raw 
             SELECT * FROM staging_table
