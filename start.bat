@@ -1,21 +1,33 @@
 @echo off
-:start
-for /f %%a in ('echo prompt $E^| cmd') do set "ESC=%%a"
-echo --- Starting Betting Application ---
-start /b python app.py
-echo Commands: [r] Restart ^| [q] Quit:
-:set
-set "input="
-set /p input=
+setlocal enabledelayedexpansion
 
-if /i "%input%"=="r" (
-    echo %ESC%[93mRestarting...%ESC%[0m
-    taskkill /f /im python.exe >nul 2>&1
+echo =====================================
+echo Checking and installing dependencies...
+echo =====================================
+:: This automatically installs your requirements.txt
+pip install -r requirements.txt
+
+:start
+echo --- Starting Betting Application ---
+
+:: Start python in the background and capture its Process ID (PID)
+for /f "tokens=2 delgies" %%A in ('powershell -Command "Start-Process python -ArgumentList 'app.py' -NoNewWindow -PassThru | Select-Object -ExpandProperty Id"') do set APP_PID=%%A
+
+echo Commands: [r] Restart ^| [q] Quit
+
+:loop
+set /p user_input="> "
+
+if /i "%user_input%"=="r" (
+    echo Restarting Betting Application...
+    taskkill /pid %APP_PID% /f >nul 2>&1
     goto start
 )
-if /i "%input%"=="q" (
-    taskkill /f /im python.exe >nul 2>&1
-    echo %ESC%[91mApplication stopped. Returning to prompt...%ESC%[0m
-    cmd /k
+
+if /i "%user_input%"=="q" (
+    echo Exiting...
+    taskkill /pid %APP_PID% /f >nul 2>&1
+    exit /b 0
 )
-goto set
+
+goto loop
