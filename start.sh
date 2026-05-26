@@ -2,12 +2,17 @@
 
 # run using 'sh start.sh'
 
+echo "Checking and installing dependencies..."
+
+# This runs the requirements file automatically for your friend
+pip3 install -r requirements.txt
+
 # Function to start app.py
 start_app() {
     # Run in background and suppress "Terminated" messages
     python3 app.py &
     APP_PID=$!
-    echo "--- Betting App Started (PID: $APP_PID) ---"s
+    echo "--- Betting App Started (PID: $APP_PID) ---"
 }
 
 # Initial start
