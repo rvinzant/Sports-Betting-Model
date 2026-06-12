@@ -10,7 +10,6 @@ model = lgb.Booster(model_file=model_path)
 # Format: [HOME_LAST_5_PTS, AWAY_LAST_5_PTS, PLUS_MINUS_HOME, PLUS_MINUS_AWAY]
 # Example: Pacers (Home) vs Celtics (Away)
 def predictGame(homeTeam, awayTeam):
-    # TODO: get the data needed and predict based off that
     tonight_data = np.array([getPreviousGameData(homeTeam, awayTeam)])
 
     if tonight_data is None:

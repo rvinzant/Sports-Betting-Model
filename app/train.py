@@ -1,7 +1,5 @@
 import os
-from sklearn import metrics
 import pandas as pd
-import numpy as np
 import sqlite3
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split

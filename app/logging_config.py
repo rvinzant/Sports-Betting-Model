@@ -1,20 +1,13 @@
 import os
 import logging
 
+# level: INFO
+
+#-------------------------------
 # Function to get or set the saved log level in config.txt
 def savedLevel(type=str, value=str):
     logger.info(f"savedLevel function in logging_config.py called with type: {type}, value: {value}")
-    idx = -1
-    level = "INFO"
-    data = []
-    # with open("config.txt", 'r') as f:
-    #     data = f.readlines()
-    #     for line in data:
-    #         idx += 1
-    #         if line.startswith("log-level:"):
-    #             level = line.split(": ")[1].strip()
-    #             break
-    #     f.close()
+    level = logger.getEffectiveLevel()
     # Recieve the log level
     if type == "GET":
         if not level:
@@ -30,16 +23,8 @@ def savedLevel(type=str, value=str):
         elif level == "ERROR":
             return logging.ERROR
         elif level == "CRITICAL":
-            return logging.CRITICAL         
-    else:
-        # Set the log level
-        # logger.info(f"Setting log level to {value} in config")
-        # with open("config.txt", 'w') as f:
-        #     if idx != -1:
-        #         data[idx] = f"log-level: {value}\n"
-        #     f.writelines(data)
-        #     f.close()
-        return
+            return logging.CRITICAL
+
 
 # Create a logs folder in the root of the project
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

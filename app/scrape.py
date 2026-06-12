@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 
 def main():
     url = "https://www.nba.com/schedule" 

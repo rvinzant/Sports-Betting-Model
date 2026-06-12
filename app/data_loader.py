@@ -3,14 +3,6 @@ import pandas as pd
 import numpy as np
 import sqlite3
 
-# gamefinder = leaguegamefinder.LeagueGameFinder(season_nullable= '2025-26')
-# games = gamefinder.get_data_frames()[0]
-
-# games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
-
-# games.to_sql('games_raw', connect, if_exists='replace', index=False)
-
-# df = pd.read_sql("SELECT * FROM games_raw", connect)
 DB_PATH = 'nba_betting.db'
 
 def update_nba_data():
