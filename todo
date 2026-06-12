@@ -1,17 +1,7 @@
-learning model
-frontend
-
-learn data
-learn lightgbm
-
-Tell Rob:
-    Lowered learning rate of model, less leaves, got to 71.76% test set accuracy
-    changed rolling average to 10 games instead of 5
-    shifted rolling average for pm by 1 to avoid data leakage
-
+Tests 2026:
     Tested 3/31: 3/6 = 50%
         suns at magic: 34.86% magic X
-        hornets at nets:  32% nets
+        hornets at nets: 32% nets
         raptors at pistons: 66.35% pistons
         nicks at rockets: 43.01% rockets X
         mavs at bucks: 45.46% bucks X
@@ -28,10 +18,17 @@ Tell Rob:
         M nuggets @ jazz: 56.83 nuggets W
         M spurs @ warriors: 55.55 spurs W
 
-    Tested 4/8:
-        76ers @ rockets: 61.45 76ers
-        bucks @ pistons: 69.12 pistons
-        timb @ magic: 61.87 timb
-        celtics @ knicks: 53.39 knicks
-        mav at suns: 54 suns
-        thunder at clipers: 53 clipers
+    Tested 4/8: 3/6
+        76ers @ rockets: 61.45 76ers L
+        bucks @ pistons: 69.12 pistons W
+        timb @ magic: 61.87 timb L
+        celtics @ knicks: 53.39 knicks W
+        mav @ suns: 54 suns W
+        thunder @ clipers: 53 clipers L
+
+    Finals:
+        6/10: 0/1
+            Spurs @ Knicks: Spurs 61.25 L
+
+        6/13:
+            Knicks @ Spurs: Spurs 81.3
