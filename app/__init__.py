@@ -1,15 +1,11 @@
-from flask import Flask, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 from flask import render_template, request
 import os
 from .logging_config import logger
 from flask_cors import CORS
-from flask_migrate import Migrate
-from datetime import datetime
-import shutil
-from app.data_loader import update_nba_data
-from app.train import trainModel
+from app.utils import update_and_train, backup_db_and_logs
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -31,16 +27,9 @@ def create_app(config_class=None):
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         app.config['DEBUG'] = True
     with app.app_context():
-        update_nba_data()
-        trainModel()
-
-
-    # train the model when app starts
-    # from .train import trainModel
-    # trainModel()
+        update_and_train()
 
     db.init_app(app)
-    # migrate = Migrate(app, db)
     login_manager.init_app(app)
     CORS(app)
 
@@ -56,17 +45,17 @@ def create_app(config_class=None):
     @app.errorhandler(500)
     def handle_internal_error(error):
         logger.error(f"HTTP 500 error: {error}")
-        return render_template("500.html"), 500
+        return render_template("error.html", number=500), 500
     
     @app.errorhandler(404)
     def handle_not_found_error(error):
-        logger.error(f"HTTP 500 error: {error}")
-        return render_template("500.html"), 404
+        logger.error(f"HTTP 404 error: {error}")
+        return render_template("error.html", number=404), 404
 
     @app.errorhandler(Exception)
     def handle_unexpected_error(error):
         logger.critical(f"Unexpected critical error: {error}", exc_info=True)
-        return render_template("500.html"), 500
+        return render_template("error.html", number=error.code), 500
     
     @app.before_request
     def log_request():
@@ -81,23 +70,7 @@ def create_app(config_class=None):
 
 
 import atexit
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Backup database and log exit
-def log_backup_exit():
+def exitFunction():
     logger.critical("Betting program exited unexpectedly or was terminated.")
-    try:
-        source = os.path.join(BASE_DIR, 'instance', 'betting_model.db')
-        backup_dir = os.path.join(BASE_DIR, 'backups')
-        if not os.path.exists(backup_dir):
-            os.makedirs(backup_dir)
-            
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        dest = f"{backup_dir}/backup_{timestamp}.db"
-        
-        shutil.copy2(source, dest)
-        logger.info(f"Database backed up to {dest}")
-    except Exception as e:
-        logger.error(f"Backup failed: {e}")
-
-atexit.register(log_backup_exit)
+    backup_db_and_logs()
+atexit.register(exitFunction)
