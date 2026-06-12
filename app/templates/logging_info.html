@@ -11,34 +11,23 @@
             <h5>Current Log Level: {{ current_level }}</h5>
             <p>You can change it to:</p>
             <div class="mb-3" aria-label="Log Level Buttons">
-
-                <!-- Form for DEBUG -->
                 <form method="POST" action="{{ url_for('main.logging_info', level='DEBUG') }}" style="display: inline;">
-                    <button type="submit" class="btn btn-outline-primary">DEBUG</button>
+                    <button type="submit" class="btn btn-outline-primary" onclick="showLoading()">DEBUG</button>
                 </form>
-
-                <!-- Form for INFO -->
                 <form method="POST" action="{{ url_for('main.logging_info', level='INFO') }}" style="display: inline;">
-                    <button type="submit" class="btn btn-outline-success">INFO</button>
+                    <button type="submit" class="btn btn-outline-success" onclick="showLoading()">INFO</button>
                 </form>
-
-                <!-- Form for WARNING -->
                 <form method="POST" action="{{ url_for('main.logging_info', level='WARNING') }}" style="display: inline;">
-                    <button type="submit" class="btn btn-outline-danger">WARNING</button>
+                    <button type="submit" class="btn btn-outline-danger" onclick="showLoading()">WARNING</button>
                 </form>
-
-                <!-- Form for ERROR -->
-                <!-- <form method="POST" action="{{ url_for('main.logging_info', level='ERROR') }}" style="display: inline;">
-                    <button type="submit" class="btn btn-outline-secondary">ERROR</button>
-                </form> -->
-
             </div>
             <p></p>
             <p>Your log file:</p>
-            <pre>{{ log_file }}</pre>
+            <pre>{{ content }}</pre>
             <div class="mb-3 d-flex justify-content-end">
                 <button id="scrollUpBtn" class="btn btn-outline-primary" onclick="scrollToSpot('top')">Go to Top</button>
             </div>
+        </div>
     </div>
 </div>
 {% endblock %}

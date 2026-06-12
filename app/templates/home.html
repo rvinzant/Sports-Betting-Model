@@ -16,8 +16,8 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h3 class="card-title">About the App</h3>
-                    <p class="card-text">Explain here</p>
-                    <p>Built with Flask and Bootstrap. Flask-Login for authentication, and ... for ... .</p>
+                    <b class="card-text">Our model is trained on the entire history of NBA games. It analyzes the average points and plus minus from the teams last 10 games to make its prediction.</b>
+                    <p>Built with Flask and Bootstrap. Flask-Login for authentication, and SQLAlchemy for database management.</p>
                 </div>
             </div>
         </div>
@@ -26,23 +26,13 @@
     <!-- Action Buttons Section -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-4">
-            <a href="{{ url_for('main.login') }}" class="btn btn-primary btn-lg w-100 mb-3">Login</a>
+            <a href="{{ url_for('main.login') }}" class="btn btn-primary btn-lg w-100 mb-3" onclick="showLoading()">Login</a>
         </div>
         <div class="col-md-4">
-            <a href="{{ url_for('main.register') }}" class="btn btn-success btn-lg w-100 mb-3">Register</a>
+            <a href="{{ url_for('main.register') }}" class="btn btn-success btn-lg w-100 mb-3" onclick="showLoading()">Register</a>
         </div>
     </div>
     
     <!-- Documentation Section -->
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
-                <div class="card shadow-sm p-3">
-                    <h3>Documentation</h3>
-                    <div>
-                        {{ content }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}
