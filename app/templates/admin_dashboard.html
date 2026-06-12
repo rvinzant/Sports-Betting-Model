@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+
+    <div class="row justify-content-around">
+        <h2>Welcome to the admin dashboard</h2>
+    </div>
+
+    <div class="row justify-content-around mt-4">
+        <div class="col-md-4">
+            <a href="{{ url_for('main.logging_info') }}" class="btn btn-danger btn-lg w-100 mb-3" onclick="showLoading()">Logging Info</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('main.update_db') }}" class="btn btn-success btn-lg w-100 mb-3" onclick="showLoading()">Update Database</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('main.admin_force_backup') }}" class="btn btn-info btn-lg w-100 mb-3" onclick="showLoading()">Backup db and logs</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('main.admin_clean_backups') }}" class="btn btn-warning btn-lg w-100 mb-3" onclick="showLoading()">Delete old backups</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('main.force_new_log_file') }}" class="btn btn-primary btn-lg w-100 mb-3" onclick="showLoading()">Create New Log File</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

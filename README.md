@@ -1,6 +1,14 @@
 # Sports-Betting-Model
 
 
+## Admin: 
+### username 'admin', password 'admin123'
+- Change log level 
+- Check logs on webpage
+- Update the DB with more recent games
+- Force backup DB and Logs
+- Delete backups older than 20 days
+- Force create a new log file
 
 
 # Tech Stack
@@ -8,7 +16,9 @@
 - Flask
 - Flask-Login
 - SQLAlchemy
-- Bootstrap 5 ?
+- Bootstrap 5  
+
+
 # Guide to run model (Mac)
 - Open Terminal (Press Command + Spacebar, type Terminal, and press Enter)
 - Run cd ~/Desktop
@@ -40,7 +50,7 @@ pip install -r requirements.txt
 ## Run using docker
 ```bash
 docker build -t betting-model .
-docker run betting-model
+docker run -p 5050:5050 betting-model
 ```
 
 
